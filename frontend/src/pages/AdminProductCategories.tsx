@@ -106,8 +106,7 @@ export default function AdminProductCategories() {
             if (!catId || typeof catId !== 'string') return false
             const normalizedProductCatId = normalizeId(catId)
             return normalizedProductCatId === normalizedCategoryId || 
-                   catId === selectedCategory.square_category_id ||
-                   normalizeId(catId) === normalizeId(selectedCategory.square_category_id)
+                   catId === selectedCategory.square_category_id
           })
           
           if (hasMatchingId) return true
