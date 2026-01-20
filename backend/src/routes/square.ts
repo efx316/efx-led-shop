@@ -11,7 +11,7 @@ router.get('/test', async (req: Request, res: Response) => {
   try {
     // Test with catalog API using direct REST call
     const { squareApiRequest } = await import('../services/squareService.js');
-    const response = await squareApiRequest('GET', '/v2/catalog/list?types=ITEM');
+    const response = await squareApiRequest('GET', '/v2/catalog/list?types=ITEM') as { objects?: any[] };
     
     const objectCount = response.objects?.length || 0;
     

@@ -23,6 +23,7 @@ const createOrderSchema = z.object({
   includeProfile: z.boolean().optional(),
   selectedProfile: z.string().nullable().optional(),
   includeEndCaps: z.boolean().optional(),
+  accessories: z.any().optional(),
   notes: z.string().optional(),
   projectName: z.string().optional(),
   company: z.string().optional(),

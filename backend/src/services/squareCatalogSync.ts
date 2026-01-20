@@ -137,8 +137,9 @@ export async function listCatalogItems(): Promise<LEDProduct[]> {
           const catId = itemData.category_id;
           if (typeof catId === 'string') {
             categoryIds = [catId];
-          } else if (catId && typeof catId === 'object' && catId.id) {
-            categoryIds = [typeof catId.id === 'string' ? catId.id : String(catId.id)];
+          } else if (catId && typeof catId === 'object' && 'id' in catId) {
+            const catIdObj = catId as { id?: string | number };
+            categoryIds = [typeof catIdObj.id === 'string' ? catIdObj.id : String(catIdObj.id || '')];
           } else {
             categoryIds = [String(catId)];
           }

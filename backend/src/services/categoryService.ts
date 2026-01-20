@@ -417,6 +417,7 @@ export async function getAllProductsWithCategories(): Promise<Array<LEDProduct &
       
       return {
         ...product,
+        categoryIds: product.categoryIds || [],
         categoryNames,
         dbCategoryIds: productCategoryMap.get(product.id) || [],
       };

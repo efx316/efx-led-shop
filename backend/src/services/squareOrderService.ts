@@ -10,6 +10,10 @@ interface Order {
   version?: number;
   createdAt?: string;
   updatedAt?: string;
+  totalMoney?: {
+    amount?: number | string;
+    currency?: string;
+  };
 }
 
 export interface OrderLineItem {
@@ -42,7 +46,7 @@ export async function createSquareOrder(input: CreateOrderInput): Promise<Order>
       },
     };
 
-    const response = await squareApiRequest('POST', '/v2/orders', orderRequest);
+    const response = await squareApiRequest('POST', '/v2/orders', orderRequest) as { order?: Order };
 
     if (!response.order) {
       throw new Error('Order creation failed: No order returned');
@@ -57,7 +61,7 @@ export async function createSquareOrder(input: CreateOrderInput): Promise<Order>
 
 export async function getSquareOrder(orderId: string): Promise<Order | null> {
   try {
-    const response = await squareApiRequest('GET', `/v2/orders/${orderId}`);
+    const response = await squareApiRequest('GET', `/v2/orders/${orderId}`) as { order?: Order };
 
     if (!response.order) {
       return null;
