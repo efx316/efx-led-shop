@@ -58,7 +58,7 @@ Railway will auto-detect your project structure. You'll need to set up:
    - Connect to same repo
    - Set root directory: `frontend`
    - Build command: `npm install && npm run build`
-   - Start command: `npm run preview` (or configure static hosting)
+   - Start command: `npm start` (uses vite preview with Railway port)
 
 3. **PostgreSQL Database**:
    - Click "New" → "Database" → "Add PostgreSQL"
