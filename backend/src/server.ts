@@ -1,0 +1,77 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+// CORS configuration - allow frontend origin in production
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || process.env.NODE_ENV === 'production' 
+    ? process.env.FRONTEND_URL?.split(',') || '*'
+    : '*',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'EFX LED Shop API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/api/health',
+      auth: '/api/auth',
+      products: '/api/square/products',
+      orders: '/api/orders',
+      drivers: '/api/drivers',
+    }
+  });
+});
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// API routes
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/user.js';
+import squareRoutes from './routes/square.js';
+import orderRoutes from './routes/orders.js';
+import driverRoutes from './routes/drivers.js';
+import photoRoutes from './routes/photos.js';
+import pointsRoutes from './routes/points.js';
+import leaderboardRoutes from './routes/leaderboard.js';
+import pointsShopRoutes from './routes/points-shop.js';
+
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/square', squareRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/drivers', driverRoutes);
+app.use('/api/photos', photoRoutes);
+app.use('/api/points', pointsRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/points-shop', pointsShopRoutes);
+
+// Admin routes
+import adminRoutes from './routes/admin.js';
+app.use('/api/admin', adminRoutes);
+
+// Error handling
+app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error('Error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+

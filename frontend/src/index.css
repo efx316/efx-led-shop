@@ -1,0 +1,303 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  --led-r: 255;
+  --led-g: 255;
+  --led-b: 255;
+  --led-brightness: 1;
+  --led-color: rgb(255, 255, 255);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #1a1a1a;
+  color: #e5e5e5;
+}
+
+/* LED Controller - fixed positioning */
+.led-controller {
+  position: fixed !important;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  z-index: 9999 !important;
+}
+
+/* LED Text Glow Effect */
+.light-studio-enabled .led-text-glow {
+  text-shadow: 
+    0 0 calc(10px * var(--led-brightness)) var(--led-color),
+    0 0 calc(20px * var(--led-brightness)) var(--led-color),
+    0 0 calc(30px * var(--led-brightness)) var(--led-color),
+    0 0 calc(40px * var(--led-brightness)) var(--led-color);
+  transition: text-shadow 0.5s ease;
+}
+
+/* Pulse effect for text glow */
+.light-studio-enabled.led-effect-pulse .led-text-glow {
+  animation: ledTextPulse 2s ease-in-out infinite;
+}
+
+@keyframes ledTextPulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 calc(5px * var(--led-brightness)) var(--led-color),
+      0 0 calc(15px * var(--led-brightness)) var(--led-color),
+      0 0 calc(25px * var(--led-brightness)) var(--led-color),
+      0 0 calc(35px * var(--led-brightness)) var(--led-color);
+  }
+  50% {
+    text-shadow: 
+      0 0 calc(15px * var(--led-brightness)) var(--led-color),
+      0 0 calc(30px * var(--led-brightness)) var(--led-color),
+      0 0 calc(45px * var(--led-brightness)) var(--led-color),
+      0 0 calc(60px * var(--led-brightness)) var(--led-color);
+  }
+}
+
+/* Shift effect for text glow */
+.light-studio-enabled.led-effect-shift .led-text-glow {
+  filter: hue-rotate(var(--shift-hue, 0deg)) grayscale(0%);
+}
+
+/* Breathe effect for text glow */
+.light-studio-enabled.led-effect-breathe .led-text-glow {
+  animation: ledTextBreathe 3s ease-in-out infinite;
+}
+
+@keyframes ledTextBreathe {
+  0%, 100% {
+    text-shadow: 
+      0 0 calc(8px * var(--led-brightness)) var(--led-color),
+      0 0 calc(18px * var(--led-brightness)) var(--led-color),
+      0 0 calc(28px * var(--led-brightness)) var(--led-color),
+      0 0 calc(38px * var(--led-brightness)) var(--led-color);
+  }
+  50% {
+    text-shadow: 
+      0 0 calc(15px * var(--led-brightness)) var(--led-color),
+      0 0 calc(30px * var(--led-brightness)) var(--led-color),
+      0 0 calc(45px * var(--led-brightness)) var(--led-color),
+      0 0 calc(60px * var(--led-brightness)) var(--led-color);
+  }
+}
+
+/* LED Strip Glow Effects */
+.led-strip-glow {
+  position: relative;
+  transition: box-shadow 0.5s ease, border-color 0.5s ease;
+}
+
+/* Glow effects ONLY show when light studio is enabled */
+.light-studio-enabled .led-strip-glow {
+  border: 2px solid var(--led-color);
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 1px) var(--led-color),
+    0 0 calc(var(--glow-medium) * 1px) var(--led-color),
+    0 0 calc(var(--glow-large) * 1px) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 1px) var(--led-color);
+}
+
+/* Reduced glow intensity for order form elements */
+.light-studio-enabled .led-order-form .led-strip-glow {
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 0.5px) var(--led-color),
+    0 0 calc(var(--glow-medium) * 0.5px) var(--led-color),
+    0 0 calc(var(--glow-large) * 0.5px) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 0.5px) var(--led-color);
+}
+
+.light-studio-enabled.led-effect-static .led-order-form .led-strip-glow {
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 0.625px) var(--led-color),
+    0 0 calc(var(--glow-medium) * 0.625px) var(--led-color),
+    0 0 calc(var(--glow-large) * 0.625px) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 0.665px) var(--led-color);
+}
+
+.light-studio-enabled.led-effect-pulse .led-order-form .led-strip-glow {
+  animation: ledPulse 2s ease-in-out infinite;
+}
+
+.light-studio-enabled.led-effect-shift .led-order-form .led-strip-glow {
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 0.625) var(--led-color),
+    0 0 calc(var(--glow-medium) * 0.625) var(--led-color),
+    0 0 calc(var(--glow-large) * 0.625) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 0.665) var(--led-color);
+  filter: hue-rotate(var(--shift-hue, 0deg)) grayscale(0%);
+}
+
+.light-studio-enabled.led-effect-breathe .led-order-form .led-strip-glow {
+  animation: ledBreathe 3s ease-in-out infinite;
+}
+
+/* Static Effect - Solid glow */
+.light-studio-enabled.led-effect-static .led-strip-glow {
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 1.25px) var(--led-color),
+    0 0 calc(var(--glow-medium) * 1.25px) var(--led-color),
+    0 0 calc(var(--glow-large) * 1.25px) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 1.33px) var(--led-color);
+}
+
+/* Pulse Effect - Pulsing glow animation */
+@keyframes ledPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 calc(var(--glow-small) * 0.5px) var(--led-color),
+      0 0 calc(var(--glow-medium) * 0.5px) var(--led-color),
+      0 0 calc(var(--glow-large) * 0.5px) var(--led-color),
+      inset 0 0 calc(var(--glow-inset) * 0.5px) var(--led-color);
+  }
+  50% {
+    box-shadow: 
+      0 0 calc(var(--glow-small) * 1.5px) var(--led-color),
+      0 0 calc(var(--glow-medium) * 1.5px) var(--led-color),
+      0 0 calc(var(--glow-large) * 1.5px) var(--led-color),
+      inset 0 0 calc(var(--glow-inset) * 1.5px) var(--led-color);
+  }
+}
+
+.light-studio-enabled.led-effect-pulse .led-strip-glow {
+  border: 2px solid var(--led-color);
+  animation: ledPulse 2s ease-in-out infinite;
+}
+
+/* Shift Effect - Color shifting animation */
+/* Hue rotation is controlled via JavaScript for synchronization */
+
+.light-studio-enabled.led-effect-shift .led-strip-glow {
+  border: 2px solid var(--led-color);
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 1.25px) var(--led-color),
+    0 0 calc(var(--glow-medium) * 1.25px) var(--led-color),
+    0 0 calc(var(--glow-large) * 1.25px) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 1.33px) var(--led-color);
+  filter: hue-rotate(var(--shift-hue, 0deg)) grayscale(0%);
+}
+
+.light-studio-enabled.led-effect-shift .led-order-form .led-strip-glow {
+  box-shadow: 
+    0 0 calc(var(--glow-small) * 0.625) var(--led-color),
+    0 0 calc(var(--glow-medium) * 0.625) var(--led-color),
+    0 0 calc(var(--glow-large) * 0.625) var(--led-color),
+    inset 0 0 calc(var(--glow-inset) * 0.665) var(--led-color);
+  filter: hue-rotate(var(--shift-hue, 0deg)) grayscale(0%);
+}
+
+/* Breathe Effect - Smooth fade in/out */
+@keyframes ledBreathe {
+  0%, 100% {
+    box-shadow: 
+      0 0 calc(var(--glow-small) * 0.4px) var(--led-color),
+      0 0 calc(var(--glow-medium) * 0.4px) var(--led-color),
+      0 0 calc(var(--glow-large) * 0.4px) var(--led-color),
+      inset 0 0 calc(var(--glow-inset) * 0.4px) var(--led-color);
+  }
+  50% {
+    box-shadow: 
+      0 0 calc(var(--glow-small) * 1.5px) var(--led-color),
+      0 0 calc(var(--glow-medium) * 1.5px) var(--led-color),
+      0 0 calc(var(--glow-large) * 1.5px) var(--led-color),
+      inset 0 0 calc(var(--glow-inset) * 1.5px) var(--led-color);
+  }
+}
+
+.light-studio-enabled.led-effect-breathe .led-strip-glow {
+  border: 2px solid var(--led-color);
+  animation: ledBreathe 3s ease-in-out infinite;
+}
+
+/* Custom slider styles for LED controller */
+.slider-red::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.slider-red::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+}
+
+.slider-green::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.slider-green::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.slider-blue::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.slider-blue::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.slider-cct::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fbbf24;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+.slider-cct::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fbbf24;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
