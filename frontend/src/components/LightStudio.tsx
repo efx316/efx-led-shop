@@ -72,22 +72,15 @@ export default function LightStudio() {
   // If collapsed, show minimized version
   if (isCollapsed) {
     return (
-      <div className="fixed bottom-4 right-4 md:bottom-4 md:right-4 bg-[#171717] rounded-xl shadow-2xl p-3 z-50 border border-[#404040] led-controller transition-all" style={{ filter: 'none' }}>
+      <div className="fixed bottom-4 right-4 md:bottom-4 md:right-4 bg-[#171717] rounded-xl shadow-2xl p-3 z-50 border border-[#404040] led-controller transition-all hover:border-[#525252]" style={{ filter: 'none' }}>
         <button
           onClick={toggleCollapse}
           className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
-          aria-label="Expand LED Controller"
+          aria-label="Show LED Controller"
         >
           <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" style={{ filter: 'none' }}></div>
-          <span className="text-sm font-bold tracking-wide">LED</span>
-          <svg 
-            className="w-4 h-4" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+          <span className="text-sm font-bold tracking-wide">LED Controller</span>
+          <span className="text-xs text-gray-400">(Click to show)</span>
         </button>
       </div>
     )
@@ -104,17 +97,10 @@ export default function LightStudio() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleCollapse}
-            className="p-2 text-gray-400 hover:text-white transition-colors"
-            aria-label="Collapse"
+            className="px-3 md:px-4 py-2 rounded-lg font-bold text-xs md:text-sm transition-all bg-[#404040] text-gray-300 hover:bg-[#525252] hover:text-white border border-[#525252]"
+            aria-label="Hide Controller"
           >
-            <svg 
-              className="w-4 h-4" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-            </svg>
+            Hide
           </button>
           <button
             onClick={toggleLight}
