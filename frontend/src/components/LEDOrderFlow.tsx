@@ -147,6 +147,39 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
     setStep('addstrips')
   }
 
+  // Check if a step is accessible (has been completed or is current step)
+  const isStepAccessible = (stepId: Step): boolean => {
+    switch (stepId) {
+      case 'environment':
+        return true // Always accessible
+      case 'color':
+        return !!config.environment
+      case 'type':
+        return !!config.colorType && config.colorType !== 'rgb' && config.colorType !== 'rgbw'
+      case 'length':
+        return !!config.colorType && (
+          config.colorType === 'rgb' || 
+          config.colorType === 'rgbw' || 
+          !!config.ledType
+        )
+      case 'tailwire':
+        return !!config.length
+      case 'addstrips':
+        return config.tailWireLength !== null
+      case 'review':
+        return config.strips.length > 0 || config.length !== null
+      default:
+        return false
+    }
+  }
+
+  // Handle step navigation
+  const handleStepClick = (stepId: Step) => {
+    if (isStepAccessible(stepId)) {
+      setStep(stepId)
+    }
+  }
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Progress Steps */}
@@ -160,17 +193,24 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
             { id: 'tailwire', label: '5. Tail Wire' },
             { id: 'addstrips', label: '6. Add Strips' },
             { id: 'review', label: '7. Review' },
-          ].map((s, index) => (
+          ].map((s, index) => {
+            const isAccessible = isStepAccessible(s.id as Step)
+            const isCurrent = step === s.id
+            const isCompleted = ['environment', 'color', 'type', 'length', 'tailwire', 'addstrips', 'review'].indexOf(step) > index
+            
+            return (
             <div key={s.id} className="flex items-center flex-1">
               <div className="flex flex-col items-center flex-1">
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-                    step === s.id
+                  onClick={() => isAccessible && handleStepClick(s.id as Step)}
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold transition-all ${
+                    isCurrent
                       ? 'bg-white text-black'
-                      : ['environment', 'color', 'type', 'length', 'tailwire', 'addstrips', 'review'].indexOf(step) >
-                        index
+                      : isCompleted
                       ? 'bg-gray-600 text-white'
                       : 'bg-gray-800 text-gray-400'
+                  } ${
+                    isAccessible ? 'cursor-pointer hover:scale-110 hover:ring-2 hover:ring-white' : 'cursor-not-allowed'
                   }`}
                 >
                   {index + 1}
@@ -187,7 +227,8 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
                 />
               )}
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 

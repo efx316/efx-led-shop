@@ -138,16 +138,16 @@ export default function ReviewStep({ config, setConfig, onBack, orderId, isEditi
         <h2 className="text-2xl font-bold mb-6">Review Your Order</h2>
         <div className={`bg-[#0a0a0a] border-2 border-[#262626] p-6 mb-6 ${enabled ? 'led-strip-glow' : ''}`}>
           <p className="text-white font-medium mb-2">
-            Login Required to Submit Order
+            Login Required to Finalize Order
           </p>
           <p className="text-[#a3a3a3] text-sm mb-4">
-            You can browse and configure your custom LED order, but you must be logged in to submit it.
+            You can still browse and configure your custom LED order, but you must be logged in to submit it.
           </p>
           <button
             onClick={() => setLocation('/login?redirect=/order')}
             className="bg-[#f5f5f5] text-[#171717] px-6 py-2 rounded-lg hover:bg-[#e5e5e5] font-medium tracking-wide uppercase text-sm"
           >
-            Login to Continue
+            LOGIN TO SUBMIT
           </button>
         </div>
         <div className={`bg-[#0a0a0a] border-2 border-[#262626] p-6 ${enabled ? 'led-strip-glow' : ''}`}>
