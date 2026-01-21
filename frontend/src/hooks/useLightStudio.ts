@@ -27,8 +27,8 @@ export function useLightStudio() {
     return {
       mode: 'rgb',
       effect: 'static',
-      red: 255,
-      green: 255,
+      red: 0,
+      green: 200,
       blue: 255,
       colorTemperature: 4000,
       white: 255,

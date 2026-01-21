@@ -1,5 +1,6 @@
 import { Link } from 'wouter'
 import { useLightStudio } from '../contexts/LightStudioContext'
+import WireframeBackground from '../components/WireframeBackground'
 
 export default function Landing() {
   const { state } = useLightStudio()
@@ -9,13 +10,8 @@ export default function Landing() {
     <div>
       {/* Hero Section */}
       <section className="relative bg-[#0a0a0a] pt-20 pb-32 overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }}></div>
-        </div>
+        {/* Wireframe background */}
+        <WireframeBackground />
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
