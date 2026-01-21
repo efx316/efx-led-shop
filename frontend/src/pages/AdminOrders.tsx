@@ -214,7 +214,7 @@ function OrderCard({
           <h4 className="font-semibold mb-2 text-white">Custom LED Order Details</h4>
           <div className="grid md:grid-cols-2 gap-2 text-sm">
             <p className="text-[#d4d4d4]"><strong className="text-[#e5e5e5]">Environment:</strong> {customData.environment}</p>
-            <p className="text-[#d4d4d4]"><strong className="text-[#e5e5e5]">Color Type:</strong> {customData.colorType}</p>
+            <p className="text-[#d4d4d4]"><strong className="text-[#e5e5e5]">Colour Type:</strong> {customData.colorType}</p>
             <p className="text-[#d4d4d4]"><strong className="text-[#e5e5e5]">LED Type:</strong> {customData.ledType}</p>
             <p className="text-[#d4d4d4]"><strong className="text-[#e5e5e5]">Length:</strong> {customData.length}m</p>
             <p className="text-[#d4d4d4]"><strong className="text-[#e5e5e5]">Tail Wire:</strong> {customData.tailWireLength}m</p>

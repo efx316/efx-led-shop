@@ -50,7 +50,7 @@ export default function LightStudio() {
     return effect.toUpperCase()
   }
 
-  // Calculate current color for preview
+  // Calculate current colour for preview
   const getCurrentColor = () => {
     if (!enabled) return 'rgb(0, 0, 0)'
     if (mode === 'rgb') {

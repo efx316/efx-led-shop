@@ -154,7 +154,7 @@ export default function ReviewStep({ config, setConfig, onBack, orderId, isEditi
           <h3 className="text-lg font-semibold mb-4 text-white">Order Summary</h3>
           <div className="space-y-2 text-sm">
             <p className="text-[#a3a3a3]"><strong className="text-white">Environment:</strong> {config.environment}</p>
-            <p className="text-[#a3a3a3]"><strong className="text-white">Color Type:</strong> {config.colorType}</p>
+            <p className="text-[#a3a3a3]"><strong className="text-white">Colour Type:</strong> {config.colorType}</p>
             <p className="text-[#a3a3a3]"><strong className="text-white">LED Type:</strong> {config.ledType}</p>
             <p className="text-[#a3a3a3]"><strong className="text-white">Length:</strong> {config.length}m</p>
             <p className="text-[#a3a3a3]"><strong className="text-white">Tail Wire:</strong> {config.tailWireLength}m</p>
@@ -180,7 +180,7 @@ export default function ReviewStep({ config, setConfig, onBack, orderId, isEditi
         <div className="grid md:grid-cols-2 gap-4 text-sm">
           <div>
             <p className="text-gray-400"><strong className="text-white">Environment:</strong> {config.environment}</p>
-            <p className="text-gray-400"><strong className="text-white">Color Type:</strong> {config.colorType}</p>
+            <p className="text-gray-400"><strong className="text-white">Colour Type:</strong> {config.colorType}</p>
             <p className="text-gray-400"><strong className="text-white">LED Type:</strong> {config.ledType}</p>
           </div>
           <div>

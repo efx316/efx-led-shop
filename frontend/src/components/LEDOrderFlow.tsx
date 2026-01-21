@@ -31,10 +31,10 @@ interface OrderConfig {
   mobile: string
 }
 
-// Convert Kelvin to RGB color - using accurate values for LED color temperatures
+// Convert Kelvin to RGB colour - using accurate values for LED colour temperatures
 function kelvinToRGB(kelvin: number): { r: number; g: number; b: number } {
-  // Lookup table based on actual color gradient swatches
-  // Colors match the visual appearance from the uploaded gradient images
+  // Lookup table based on actual colour gradient swatches
+  // Colours match the visual appearance from the uploaded gradient images
   const colorMap: Record<number, { r: number; g: number; b: number }> = {
     2700: { r: 255, g: 200, b: 100 },  // Warm luminous yellow-orange (bright yellow/orange tones)
     3000: { r: 255, g: 230, b: 190 },  // Creamy beige/pale yellow-orange (soft warm tone)
@@ -187,7 +187,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
         <div className="flex items-center justify-between">
           {[
             { id: 'environment', label: '1. Environment' },
-            { id: 'color', label: '2. Color' },
+            { id: 'color', label: '2. Colour' },
             { id: 'type', label: '3. Type' },
             { id: 'length', label: '4. Length' },
             { id: 'tailwire', label: '5. Tail Wire' },
@@ -274,7 +274,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
 
         {step === 'color' && (
           <div>
-            <h2 className="text-2xl font-bold mb-6 text-white">Select Color Type</h2>
+            <h2 className="text-2xl font-bold mb-6 text-white">Select Colour Type</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <button
                 onClick={() => handleColorSelect('single')}
@@ -283,7 +283,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
                 <div className="text-4xl mb-4">💡</div>
                 <h3 className="text-xl font-semibold mb-2 text-white">Single Colour</h3>
                 <p className="text-[#a3a3a3] text-sm">
-                  One fixed white color temperature
+                  One fixed white colour temperature
                 </p>
               </button>
               <button
@@ -303,7 +303,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
                 <div className="text-4xl mb-4">🌈</div>
                 <h3 className="text-xl font-semibold mb-2 text-white">RGB</h3>
                 <p className="text-[#a3a3a3] text-sm">
-                  Full color changing capability
+                  Full colour changing capability
                 </p>
               </button>
               <button
@@ -313,7 +313,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
                 <div className="text-4xl mb-4">✨</div>
                 <h3 className="text-xl font-semibold mb-2 text-white">RGBW</h3>
                 <p className="text-[#a3a3a3] text-sm">
-                  RGB colors plus dedicated white
+                  RGB colours plus dedicated white
                 </p>
               </button>
             </div>
