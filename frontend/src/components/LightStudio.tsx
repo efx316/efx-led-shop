@@ -37,6 +37,28 @@ export default function LightStudio() {
     setIsCollapsed(!isCollapsed)
   }
 
+  // Prevent page scrolling when touching blank space in the controller
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const target = e.target as HTMLElement
+    // Allow touch events on interactive elements (inputs, buttons) to work normally
+    if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('input') || target.closest('button')) {
+      return
+    }
+    // Prevent scrolling on blank space in the controller
+    e.stopPropagation()
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const target = e.target as HTMLElement
+    // Allow touch events on interactive elements (inputs, buttons) to work normally
+    if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('input') || target.closest('button')) {
+      return
+    }
+    // Prevent scrolling when touching blank space in the controller
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
   const kelvinToLabel = (kelvin: number): string => {
     if (kelvin <= 3000) return 'Very Warm'
     if (kelvin <= 3500) return 'Warm White'
@@ -92,7 +114,12 @@ export default function LightStudio() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 bg-[#171717] rounded-xl shadow-2xl p-4 md:p-5 w-[calc(100vw-2rem)] max-w-96 z-50 border border-[#404040] led-controller transition-all" style={{ filter: 'none' }}>
+    <div 
+      className="fixed bottom-4 right-4 bg-[#171717] rounded-xl shadow-2xl p-4 md:p-5 w-[calc(100vw-2rem)] max-w-96 z-50 border border-[#404040] led-controller transition-all" 
+      style={{ filter: 'none' }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+    >
       {/* LED Controller Header */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#404040]">
         <div className="flex items-center gap-2">
