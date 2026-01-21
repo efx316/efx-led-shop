@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useLightStudio, LightMode, LightEffect } from '../contexts/LightStudioContext'
 
 export default function LightStudio() {
@@ -15,6 +16,26 @@ export default function LightStudio() {
   } = useLightStudio()
 
   const { mode, effect, red, green, blue, colorTemperature, white, brightness, enabled } = state
+  
+  // Collapsed state - load from localStorage
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('ledControllerCollapsed')
+      return saved === 'true'
+    }
+    return false
+  })
+
+  // Save collapsed state to localStorage
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('ledControllerCollapsed', isCollapsed.toString())
+    }
+  }, [isCollapsed])
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed)
+  }
 
   const kelvinToLabel = (kelvin: number): string => {
     if (kelvin <= 3000) return 'Very Warm'
@@ -48,25 +69,65 @@ export default function LightStudio() {
     }
   }
 
+  // If collapsed, show minimized version
+  if (isCollapsed) {
+    return (
+      <div className="fixed bottom-4 right-4 md:bottom-4 md:right-4 bg-[#171717] rounded-xl shadow-2xl p-3 z-50 border border-[#404040] led-controller transition-all" style={{ filter: 'none' }}>
+        <button
+          onClick={toggleCollapse}
+          className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+          aria-label="Expand LED Controller"
+        >
+          <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" style={{ filter: 'none' }}></div>
+          <span className="text-sm font-bold tracking-wide">LED</span>
+          <svg 
+            className="w-4 h-4" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+    )
+  }
+
   return (
-    <div className="fixed bottom-4 right-4 bg-[#171717] rounded-xl shadow-2xl p-5 w-96 z-50 border border-[#404040] led-controller" style={{ filter: 'none' }}>
+    <div className="fixed bottom-4 right-4 bg-[#171717] rounded-xl shadow-2xl p-4 md:p-5 w-[calc(100vw-2rem)] max-w-96 z-50 border border-[#404040] led-controller transition-all" style={{ filter: 'none' }}>
       {/* LED Controller Header */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#404040]">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" style={{ filter: 'none' }}></div>
-          <h3 className="text-lg font-bold text-white tracking-wide">LED CONTROLLER</h3>
+          <h3 className="text-base md:text-lg font-bold text-white tracking-wide">LED CONTROLLER</h3>
         </div>
-        <button
-          onClick={toggleLight}
-          className={`px-6 py-2 rounded-lg font-bold text-sm transition-all ${
-            enabled
-              ? 'bg-green-600 text-white hover:bg-green-500 shadow-lg shadow-green-500/50'
-              : 'bg-[#404040] text-[#a3a3a3] hover:bg-[#525252]'
-          }`}
-          style={{ filter: 'none' }}
-        >
-          {enabled ? 'ON' : 'OFF'}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleCollapse}
+            className="p-2 text-gray-400 hover:text-white transition-colors"
+            aria-label="Collapse"
+          >
+            <svg 
+              className="w-4 h-4" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            </svg>
+          </button>
+          <button
+            onClick={toggleLight}
+            className={`px-4 md:px-6 py-2 rounded-lg font-bold text-xs md:text-sm transition-all ${
+              enabled
+                ? 'bg-green-600 text-white hover:bg-green-500 shadow-lg shadow-green-500/50'
+                : 'bg-[#404040] text-[#a3a3a3] hover:bg-[#525252]'
+            }`}
+            style={{ filter: 'none' }}
+          >
+            {enabled ? 'ON' : 'OFF'}
+          </button>
+        </div>
       </div>
 
       {/* LED Strip Preview */}

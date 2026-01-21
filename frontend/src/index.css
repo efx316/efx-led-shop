@@ -30,6 +30,14 @@ body {
   z-index: 9999 !important;
 }
 
+/* Mobile-specific adjustments */
+@media (max-width: 640px) {
+  .led-controller {
+    bottom: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+}
+
 /* LED Text Glow Effect */
 .light-studio-enabled .led-text-glow {
   text-shadow: 
