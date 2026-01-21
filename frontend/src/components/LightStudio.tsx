@@ -45,6 +45,11 @@ export default function LightStudio() {
     return 'Very Cool'
   }
 
+  const getEffectLabel = (effect: LightEffect): string => {
+    if (effect === 'shift') return 'RGB SCROLL'
+    return effect.toUpperCase()
+  }
+
   // Calculate current color for preview
   const getCurrentColor = () => {
     if (!enabled) return 'rgb(0, 0, 0)'
@@ -157,7 +162,7 @@ export default function LightStudio() {
                       : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
                   }`}
                 >
-                  {e}
+                  {getEffectLabel(e)}
                 </button>
               ))}
             </div>
