@@ -54,7 +54,7 @@ export default function Landing() {
             </div>
             
             {/* Stats or Trust Indicators */}
-            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12 border-t border-[#262626]">
+            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12 border-t border-[#525252]">
               <div>
                 <div className="text-3xl font-bold text-white mb-1">100%</div>
                 <div className="text-xs text-[#737373] uppercase tracking-wider">Custom</div>
@@ -73,8 +73,16 @@ export default function Landing() {
       </section>
 
       {/* About Us Section */}
-      <section className="py-32 bg-[#171717]">
-        <div className="container mx-auto px-6">
+      <section className="py-32 bg-[#171717] relative overflow-hidden">
+        {/* Subtle dot pattern background */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+            backgroundSize: '24px 24px'
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto">
             <div className={`border border-[#262626] p-12 md:p-16 ${enabled ? 'led-strip-glow' : ''}`}>
               <div className="mb-8">
@@ -118,8 +126,19 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="py-32 bg-[#0a0a0a]">
-        <div className="container mx-auto px-6">
+      <section className="py-32 bg-[#0a0a0a] relative overflow-hidden">
+        {/* Subtle crosshatch pattern background */}
+        <div className="absolute inset-0 opacity-[0.04]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `
+              linear-gradient(45deg, transparent 48%, white 48%, white 52%, transparent 52%),
+              linear-gradient(-45deg, transparent 48%, white 48%, white 52%, transparent 52%)
+            `,
+            backgroundSize: '16px 16px'
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold mb-4 text-white tracking-tight">Why Choose EFX</h2>
             <p className="text-[#737373] font-light max-w-2xl mx-auto">
@@ -154,8 +173,16 @@ export default function Landing() {
       </section>
 
       {/* Products Preview Section */}
-      <section className="py-32 bg-[#171717]">
-        <div className="container mx-auto px-6">
+      <section className="py-32 bg-[#171717] relative overflow-hidden">
+        {/* Subtle wave pattern background */}
+        <div className="absolute inset-0 opacity-[0.03]">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, white 2px, white 4px)',
+            backgroundSize: '100% 32px'
+          }}></div>
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-5xl font-bold mb-6 text-white tracking-tight">Our Products</h2>
             <p className="text-[#a3a3a3] font-light mb-12 text-lg max-w-2xl mx-auto">
