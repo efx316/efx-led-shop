@@ -67,26 +67,6 @@ body {
   appearance: none;
 }
 
-/* iOS Safari-specific fixes */
-@supports (-webkit-touch-callout: none) {
-  /* This targets iOS Safari specifically */
-  .slider-container {
-    /* Remove negative margins on iOS as they can interfere with touch detection */
-    margin-top: 0;
-    margin-bottom: 0;
-    /* Increase padding for iOS minimum touch target (44px) */
-    padding-top: 16px;
-    padding-bottom: 16px;
-  }
-  
-  .slider-container input[type="range"] {
-    /* Ensure minimum touch target height for iOS */
-    min-height: 44px;
-    padding: 12px 0;
-    margin: -12px 0;
-  }
-}
-
 /* Mobile-specific adjustments */
 @media (max-width: 640px) {
   .led-controller {
