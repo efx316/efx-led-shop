@@ -215,7 +215,7 @@ export default function LightStudio() {
           {/* RGB Mode */}
           {mode === 'rgb' && (
             <div className="space-y-3">
-              <div>
+              <div className="slider-container">
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-xs font-bold text-red-500 uppercase tracking-wide" style={{ filter: 'none', color: '#ef4444' }}>RED</label>
                   <span className="text-xs text-gray-400 font-mono">{red}</span>
@@ -229,7 +229,7 @@ export default function LightStudio() {
                   className="w-full h-2 bg-gradient-to-r from-black via-red-500 to-red-500 rounded-lg appearance-none cursor-pointer slider-red"
                 />
               </div>
-              <div>
+              <div className="slider-container">
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-xs font-bold text-green-500 uppercase tracking-wide" style={{ filter: 'none', color: '#22c55e' }}>GREEN</label>
                   <span className="text-xs text-gray-400 font-mono">{green}</span>
@@ -243,7 +243,7 @@ export default function LightStudio() {
                   className="w-full h-2 bg-gradient-to-r from-black via-green-500 to-green-500 rounded-lg appearance-none cursor-pointer slider-green"
                 />
               </div>
-              <div>
+              <div className="slider-container">
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-xs font-bold text-blue-500 uppercase tracking-wide" style={{ filter: 'none', color: '#3b82f6' }}>BLUE</label>
                   <span className="text-xs text-gray-400 font-mono">{blue}</span>
@@ -268,7 +268,7 @@ export default function LightStudio() {
                   COLOR TEMP: {kelvinToLabel(colorTemperature)} ({colorTemperature}K)
                 </label>
               </div>
-              <div className="relative">
+              <div className="relative slider-container">
                 <input
                   type="range"
                   min="2700"
@@ -288,7 +288,7 @@ export default function LightStudio() {
 
           {/* White Mode */}
           {mode === 'white' && (
-            <div>
+            <div className="slider-container">
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-bold text-gray-300 uppercase tracking-wide">WHITE</label>
                 <span className="text-xs text-gray-400 font-mono">{white}</span>
@@ -305,7 +305,7 @@ export default function LightStudio() {
           )}
 
           {/* Brightness Slider */}
-          <div className="pt-3 border-t border-gray-700">
+          <div className="pt-3 border-t border-gray-700 slider-container">
             <div className="flex items-center justify-between mb-2">
               <label className="text-xs font-bold text-gray-300 uppercase tracking-wide">BRIGHTNESS</label>
               <span className="text-xs text-gray-400 font-mono">{brightness}%</span>

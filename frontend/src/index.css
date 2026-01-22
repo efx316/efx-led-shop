@@ -30,11 +30,33 @@ body {
   z-index: 9999 !important;
 }
 
+/* Increase touch target area for sliders without changing visual appearance */
+/* Add invisible padding that creates larger touch area */
+.slider-container {
+  /* Add padding for larger touch area */
+  padding-top: 14px;
+  padding-bottom: 14px;
+  /* Use negative margin to offset padding and maintain visual spacing */
+  margin-top: -14px;
+  margin-bottom: -14px;
+}
+
+/* Ensure slider inputs work properly with touch */
+.slider-container input[type="range"] {
+  touch-action: pan-x;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Mobile-specific adjustments */
 @media (max-width: 640px) {
   .led-controller {
     bottom: 0.75rem !important;
     right: 0.75rem !important;
+  }
+  
+  /* Even larger touch targets on mobile */
+  .led-controller input[type="range"]::before {
+    min-height: 48px;
   }
 }
 
