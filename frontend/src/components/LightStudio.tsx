@@ -220,28 +220,32 @@ export default function LightStudio() {
                   <label className="text-xs font-bold text-red-500 uppercase tracking-wide" style={{ filter: 'none', color: '#ef4444' }}>RED</label>
                   <span className="text-xs text-gray-400 font-mono">{red}</span>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="255"
-                  value={red}
-                  onChange={(e) => updateRed(Number(e.target.value))}
-                  className="w-full h-2 bg-gradient-to-r from-black via-red-500 to-red-500 rounded-lg appearance-none cursor-pointer slider-red"
-                />
+                <div className="py-2 -my-2 slider-touch-target">
+                  <input
+                    type="range"
+                    min="0"
+                    max="255"
+                    value={red}
+                    onChange={(e) => updateRed(Number(e.target.value))}
+                    className="w-full h-2 bg-gradient-to-r from-black via-red-500 to-red-500 rounded-lg appearance-none cursor-pointer slider-red"
+                  />
+                </div>
               </div>
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className="text-xs font-bold text-green-500 uppercase tracking-wide" style={{ filter: 'none', color: '#22c55e' }}>GREEN</label>
                   <span className="text-xs text-gray-400 font-mono">{green}</span>
                 </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="255"
-                  value={green}
-                  onChange={(e) => updateGreen(Number(e.target.value))}
-                  className="w-full h-2 bg-gradient-to-r from-black via-green-500 to-green-500 rounded-lg appearance-none cursor-pointer slider-green"
-                />
+                <div className="py-2 -my-2 slider-touch-target">
+                  <input
+                    type="range"
+                    min="0"
+                    max="255"
+                    value={green}
+                    onChange={(e) => updateGreen(Number(e.target.value))}
+                    className="w-full h-2 bg-gradient-to-r from-black via-green-500 to-green-500 rounded-lg appearance-none cursor-pointer slider-green"
+                  />
+                </div>
               </div>
               <div>
                 <div className="flex items-center justify-between mb-2">
@@ -269,15 +273,17 @@ export default function LightStudio() {
                 </label>
               </div>
               <div className="relative">
-                <input
-                  type="range"
-                  min="2700"
-                  max="6500"
-                  step="100"
-                  value={colorTemperature}
-                  onChange={(e) => updateColorTemperature(Number(e.target.value))}
-                  className="w-full h-3 bg-gradient-to-r from-orange-500 via-yellow-300 to-blue-300 rounded-lg appearance-none cursor-pointer slider-cct"
-                />
+                <div className="py-2 -my-2 slider-touch-target">
+                  <input
+                    type="range"
+                    min="2700"
+                    max="6500"
+                    step="100"
+                    value={colorTemperature}
+                    onChange={(e) => updateColorTemperature(Number(e.target.value))}
+                    className="w-full h-3 bg-gradient-to-r from-orange-500 via-yellow-300 to-blue-300 rounded-lg appearance-none cursor-pointer slider-cct"
+                  />
+                </div>
                 <div className="flex justify-between text-xs text-gray-500 mt-1">
                   <span>2700K</span>
                   <span>6500K</span>
@@ -288,20 +294,22 @@ export default function LightStudio() {
 
           {/* White Mode */}
           {mode === 'white' && (
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-bold text-gray-300 uppercase tracking-wide">WHITE</label>
-                <span className="text-xs text-gray-400 font-mono">{white}</span>
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-xs font-bold text-gray-300 uppercase tracking-wide">WHITE</label>
+                  <span className="text-xs text-gray-400 font-mono">{white}</span>
+                </div>
+                <div className="py-2 -my-2 slider-touch-target">
+                  <input
+                    type="range"
+                    min="0"
+                    max="255"
+                    value={white}
+                    onChange={(e) => updateWhite(Number(e.target.value))}
+                    className="w-full h-2 bg-gradient-to-r from-black via-gray-400 to-white rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
               </div>
-              <input
-                type="range"
-                min="0"
-                max="255"
-                value={white}
-                onChange={(e) => updateWhite(Number(e.target.value))}
-                className="w-full h-2 bg-gradient-to-r from-black via-gray-400 to-white rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
           )}
 
           {/* Brightness Slider */}
@@ -310,15 +318,17 @@ export default function LightStudio() {
               <label className="text-xs font-bold text-gray-300 uppercase tracking-wide">BRIGHTNESS</label>
               <span className="text-xs text-gray-400 font-mono">{brightness}%</span>
             </div>
-            <input
-              type="range"
-              min="0"
-              max="100"
-              step="1"
-              value={brightness}
-              onChange={(e) => updateBrightness(Number(e.target.value))}
-              className="w-full h-2 bg-gradient-to-r from-black via-gray-600 to-white rounded-lg appearance-none cursor-pointer"
-            />
+            <div className="py-2 -my-2 slider-touch-target">
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="1"
+                value={brightness}
+                onChange={(e) => updateBrightness(Number(e.target.value))}
+                className="w-full h-2 bg-gradient-to-r from-black via-gray-600 to-white rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
           </div>
         </div>
       )}
