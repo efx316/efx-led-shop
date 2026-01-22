@@ -40,8 +40,15 @@ export default function LightStudio() {
   // Prevent page scrolling when touching blank space in the controller
   const handleTouchStart = (e: React.TouchEvent) => {
     const target = e.target as HTMLElement
-    // Allow touch events on interactive elements (inputs, buttons) to work normally
-    if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('input') || target.closest('button')) {
+    // Allow touch events on interactive elements (inputs, buttons, slider containers) to work normally
+    // iOS Safari needs slider containers to be completely excluded from touch prevention
+    if (
+      target.tagName === 'INPUT' || 
+      target.tagName === 'BUTTON' || 
+      target.closest('input') || 
+      target.closest('button') ||
+      target.closest('.slider-container')
+    ) {
       return
     }
     // Prevent scrolling on blank space in the controller
@@ -50,8 +57,15 @@ export default function LightStudio() {
 
   const handleTouchMove = (e: React.TouchEvent) => {
     const target = e.target as HTMLElement
-    // Allow touch events on interactive elements (inputs, buttons) to work normally
-    if (target.tagName === 'INPUT' || target.tagName === 'BUTTON' || target.closest('input') || target.closest('button')) {
+    // Allow touch events on interactive elements (inputs, buttons, slider containers) to work normally
+    // iOS Safari needs slider containers to be completely excluded from touch prevention
+    if (
+      target.tagName === 'INPUT' || 
+      target.tagName === 'BUTTON' || 
+      target.closest('input') || 
+      target.closest('button') ||
+      target.closest('.slider-container')
+    ) {
       return
     }
     // Prevent scrolling when touching blank space in the controller

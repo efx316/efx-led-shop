@@ -39,12 +39,52 @@ body {
   /* Use negative margin to offset padding and maintain visual spacing */
   margin-top: -14px;
   margin-bottom: -14px;
+  /* Ensure containers don't interfere with touch events */
+  pointer-events: auto;
 }
 
 /* Ensure slider inputs work properly with touch */
 .slider-container input[type="range"] {
-  touch-action: pan-x;
+  /* Use manipulation for better iOS Safari touch handling */
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  /* iOS Safari requires explicit webkit appearance reset */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* General rule for all range inputs in LED controller for iOS compatibility */
+.led-controller input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS Safari requires webkit appearance reset on slider track as well */
+.led-controller input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* iOS Safari-specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* This targets iOS Safari specifically */
+  .slider-container {
+    /* Remove negative margins on iOS as they can interfere with touch detection */
+    margin-top: 0;
+    margin-bottom: 0;
+    /* Increase padding for iOS minimum touch target (44px) */
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  
+  .slider-container input[type="range"] {
+    /* Ensure minimum touch target height for iOS */
+    min-height: 44px;
+    padding: 12px 0;
+    margin: -12px 0;
+  }
 }
 
 /* Mobile-specific adjustments */
@@ -248,6 +288,7 @@ body {
 
 /* Custom slider styles for LED controller */
 .slider-red::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
   width: 18px;
   height: 18px;
@@ -269,6 +310,7 @@ body {
 }
 
 .slider-green::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
   width: 18px;
   height: 18px;
@@ -290,6 +332,7 @@ body {
 }
 
 .slider-blue::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
   width: 18px;
   height: 18px;
@@ -311,6 +354,7 @@ body {
 }
 
 .slider-cct::-webkit-slider-thumb {
+  -webkit-appearance: none;
   appearance: none;
   width: 18px;
   height: 18px;
