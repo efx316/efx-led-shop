@@ -30,39 +30,11 @@ body {
   z-index: 9999 !important;
 }
 
-/* Increase touch target area for sliders on mobile */
-.slider-touch-target {
-  /* Create larger touch area without changing visual appearance */
-  min-height: 44px; /* Apple's recommended minimum touch target */
-  display: flex;
-  align-items: center;
-  /* Negative margin to offset padding and keep visual spacing the same */
-  margin-left: -0.5rem;
-  margin-right: -0.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.slider-touch-target input[type="range"] {
-  /* Ensure slider thumb is easier to hit */
-  min-height: 44px;
-  padding: 0.75rem 0;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: pan-x;
-}
-
 /* Mobile-specific adjustments */
 @media (max-width: 640px) {
   .led-controller {
     bottom: 0.75rem !important;
     right: 0.75rem !important;
-  }
-  
-  /* Even larger touch targets on mobile */
-  .slider-touch-target {
-    min-height: 48px;
-    padding-top: 0.875rem;
-    padding-bottom: 0.875rem;
   }
 }
 
@@ -337,84 +309,3 @@ body {
   box-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
 }
 
-/* Wireframe Background Styles */
-.wireframe-square-off {
-  border: 1px solid transparent;
-  background: transparent;
-}
-
-.wireframe-square-lit {
-  border: 1px solid var(--led-color);
-  background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.15 * var(--led-brightness)));
-  box-shadow: 
-    0 0 calc(8px * var(--led-brightness)) var(--led-color),
-    0 0 calc(16px * var(--led-brightness)) var(--led-color),
-    inset 0 0 calc(4px * var(--led-brightness)) var(--led-color);
-}
-
-/* Static effect for wireframe squares */
-.light-studio-enabled.led-effect-static .wireframe-square-lit {
-  border: 1px solid var(--led-color);
-  background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.2 * var(--led-brightness)));
-  box-shadow: 
-    0 0 calc(10px * var(--led-brightness)) var(--led-color),
-    0 0 calc(20px * var(--led-brightness)) var(--led-color),
-    inset 0 0 calc(6px * var(--led-brightness)) var(--led-color);
-}
-
-/* Pulse effect for wireframe squares */
-.light-studio-enabled.led-effect-pulse .wireframe-square-lit {
-  animation: wireframePulse 2s ease-in-out infinite;
-}
-
-@keyframes wireframePulse {
-  0%, 100% {
-    border: 1px solid var(--led-color);
-    background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.1 * var(--led-brightness)));
-    box-shadow: 
-      0 0 calc(5px * var(--led-brightness)) var(--led-color),
-      0 0 calc(10px * var(--led-brightness)) var(--led-color),
-      inset 0 0 calc(2px * var(--led-brightness)) var(--led-color);
-  }
-  50% {
-    border: 1px solid var(--led-color);
-    background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.25 * var(--led-brightness)));
-    box-shadow: 
-      0 0 calc(15px * var(--led-brightness)) var(--led-color),
-      0 0 calc(30px * var(--led-brightness)) var(--led-color),
-      inset 0 0 calc(8px * var(--led-brightness)) var(--led-color);
-  }
-}
-
-/* Shift effect for wireframe squares */
-.light-studio-enabled.led-effect-shift .wireframe-square-lit {
-  border: 1px solid var(--led-color);
-  background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.2 * var(--led-brightness)));
-  box-shadow: 
-    0 0 calc(10px * var(--led-brightness)) var(--led-color),
-    0 0 calc(20px * var(--led-brightness)) var(--led-color),
-    inset 0 0 calc(6px * var(--led-brightness)) var(--led-color);
-  filter: hue-rotate(var(--shift-hue, 0deg)) grayscale(0%);
-}/* Breathe effect for wireframe squares */
-.light-studio-enabled.led-effect-breathe .wireframe-square-lit {
-  animation: wireframeBreathe 3s ease-in-out infinite;
-}
-
-@keyframes wireframeBreathe {
-  0%, 100% {
-    border: 1px solid var(--led-color);
-    background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.12 * var(--led-brightness)));
-    box-shadow: 
-      0 0 calc(6px * var(--led-brightness)) var(--led-color),
-      0 0 calc(12px * var(--led-brightness)) var(--led-color),
-      inset 0 0 calc(3px * var(--led-brightness)) var(--led-color);
-  }
-  50% {
-    border: 1px solid var(--led-color);
-    background: rgba(var(--led-r), var(--led-g), var(--led-b), calc(0.25 * var(--led-brightness)));
-    box-shadow: 
-      0 0 calc(15px * var(--led-brightness)) var(--led-color),
-      0 0 calc(30px * var(--led-brightness)) var(--led-color),
-      inset 0 0 calc(8px * var(--led-brightness)) var(--led-color);
-  }
-}
