@@ -7,6 +7,7 @@ import Landing from './pages/Landing'
 import Products from './pages/Products'
 import Order from './pages/Order'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Orders from './pages/Orders'
 import Admin from './pages/Admin'
 import AdminOrders from './pages/AdminOrders'
@@ -32,6 +33,7 @@ function App() {
             <Route path="/order" component={Order} />
             <Route path="/order/edit/:id" component={EditOrder} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
             <Route path="/orders" component={Orders} />
             <Route path="/points-shop" component={PointsShop} />
             <Route path="/leaderboard" component={Leaderboard} />

@@ -4,9 +4,11 @@ import { apiRequest } from '../lib/api'
 import { useLightStudio } from '../contexts/LightStudioContext'
 
 export default function Register() {
-  const { state } = useLightStudio()
-  const { enabled } = state
-  const [, setLocation] = useLocation()
+  try {
+    console.log('🔵 Register component rendering')
+    const { state } = useLightStudio()
+    const { enabled } = state
+    const [, setLocation] = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
@@ -132,4 +134,15 @@ export default function Register() {
       </div>
     </div>
   )
+  } catch (error) {
+    console.error('❌ Register component error:', error)
+    return (
+      <div className="container mx-auto px-6 py-20 max-w-md">
+        <div className="bg-red-900 border border-red-700 p-12">
+          <h1 className="text-2xl font-bold mb-4 text-white">Error Loading Register</h1>
+          <pre className="text-white text-sm">{String(error)}</pre>
+        </div>
+      </div>
+    )
+  }
 }
