@@ -26,6 +26,16 @@ export default defineConfig({
       '.railway.app', // Allow all Railway subdomains
       'localhost',
     ],
+    // Ensure SPA routing works - serve index.html for all routes
+    strictPort: false,
+  },
+  build: {
+    // Ensure proper SPA build
+    rollupOptions: {
+      input: {
+        main: './index.html',
+      },
+    },
   },
 });
 
