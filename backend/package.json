@@ -8,6 +8,7 @@
     "start": "node dist/server.js",
     "create-test-user": "node scripts/create-test-user.js",
     "make-admin": "node scripts/make-admin.js",
+    "grant-admin": "node scripts/grant-admin.js",
     "add-points": "node scripts/add-points.js",
     "add-custom-order-column": "node scripts/add-custom-order-data-column.js",
     "migrate-categories": "tsx scripts/migrate-categories.ts"
