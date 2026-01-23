@@ -31,20 +31,12 @@ body {
 }
 
 /* Increase touch target area for sliders without changing visual appearance */
-/* Significantly increased padding creates much larger touch area for easier tapping */
 .slider-container {
-  /* Very large padding creates bigger touch area (40px = 80px+ total touch height) */
-  /* This makes it much easier to hit on small iPhones */
-  padding-top: 40px;
-  padding-bottom: 40px;
-  /* Negative margin exactly offsets padding to maintain visual spacing */
-  margin-top: -40px;
-  margin-bottom: -40px;
-  /* Ensure containers don't interfere with touch events */
-  pointer-events: auto;
+  position: relative;
+  /* No padding/margin changes - keeps visual spacing exactly the same */
 }
 
-/* Ensure slider inputs work properly with touch */
+/* Increase touch area directly on the input element without affecting visuals */
 .slider-container input[type="range"] {
   /* Use manipulation for better iOS Safari touch handling */
   touch-action: manipulation;
@@ -52,6 +44,13 @@ body {
   /* iOS Safari requires explicit webkit appearance reset */
   -webkit-appearance: none;
   appearance: none;
+  /* Add padding to increase touch area - this creates larger hit area */
+  padding: 30px 0;
+  margin: -30px 0;
+  /* Ensure the input itself has a large touch target */
+  min-height: 60px;
+  /* Use box-sizing to ensure padding doesn't affect track height */
+  box-sizing: border-box;
 }
 
 /* General rule for all range inputs in LED controller for iOS compatibility */
