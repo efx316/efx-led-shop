@@ -2,16 +2,21 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Check environment variables and log helpful errors
 const accessToken = process.env.SQUARE_ACCESS_TOKEN || '';
 const environment = process.env.SQUARE_ENVIRONMENT === 'production' ? 'production' : 'sandbox';
 
 if (!accessToken) {
+  console.error('❌ SQUARE_ACCESS_TOKEN is missing!');
+  console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('SQUARE')));
   throw new Error('SQUARE_ACCESS_TOKEN is required');
 }
 
 export const locationId = process.env.SQUARE_LOCATION_ID || '';
 
 if (!locationId) {
+  console.error('❌ SQUARE_LOCATION_ID is missing!');
+  console.error('Available env vars:', Object.keys(process.env).filter(k => k.includes('SQUARE')));
   throw new Error('SQUARE_LOCATION_ID is required');
 }
 
