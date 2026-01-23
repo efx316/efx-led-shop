@@ -31,14 +31,14 @@ body {
 }
 
 /* Increase touch target area for sliders without changing visual appearance */
-/* Add invisible padding that creates larger touch area */
+/* Significantly increased padding creates much larger touch area for easier tapping */
 .slider-container {
-  /* Add padding for larger touch area */
-  padding-top: 14px;
-  padding-bottom: 14px;
-  /* Use negative margin to offset padding and maintain visual spacing */
-  margin-top: -14px;
-  margin-bottom: -14px;
+  /* Large padding creates bigger touch area (28px = 56px+ total touch height) */
+  padding-top: 28px;
+  padding-bottom: 28px;
+  /* Negative margin exactly offsets padding to maintain visual spacing */
+  margin-top: -28px;
+  margin-bottom: -28px;
   /* Ensure containers don't interfere with touch events */
   pointer-events: auto;
 }
