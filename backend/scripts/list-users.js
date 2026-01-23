@@ -9,8 +9,11 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load .env from backend directory
-dotenv.config({ path: join(__dirname, '..', '.env') });
+// Load .env from backend directory ONLY if DATABASE_URL is not already set
+// This allows Railway's environment variables to take precedence
+if (!process.env.DATABASE_URL) {
+  dotenv.config({ path: join(__dirname, '..', '.env') });
+}
 
 const { Pool } = pg;
 const pool = new Pool({
