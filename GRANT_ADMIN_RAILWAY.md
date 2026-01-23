@@ -1,24 +1,68 @@
 # Grant Admin Access via Railway
 
-## Quick Method: Using Railway Console
+## Method 1: Using Railway CLI (Recommended)
 
-1. **Go to Railway Dashboard**
-   - Open your Railway project
-   - Click on your **backend service**
+Railway doesn't have a direct web-based console - you need to use the Railway CLI from your local machine.
 
-2. **Open Railway Console**
-   - Click on the **"Console"** tab (or look for "Open Console" button)
-   - This opens a terminal connected to your backend service
+### Step 1: Install Railway CLI
 
-3. **Run the grant-admin script:**
-   ```bash
-   node scripts/grant-admin.js mark@efx.net.au paul@efx.net.au jett@efx.net.au
-   ```
+**Windows (PowerShell):**
+```powershell
+iwr https://railway.app/install.ps1 | iex
+```
 
-4. **The script will:**
-   - Connect to your Railway database (DATABASE_URL is automatically available)
-   - Grant admin access to all three users
-   - Show you a summary
+**Mac/Linux:**
+```bash
+curl -fsSL https://railway.app/install.sh | sh
+```
+
+### Step 2: Login to Railway
+
+```bash
+railway login
+```
+
+This will open your browser to authenticate.
+
+### Step 3: Link to Your Project
+
+Navigate to your project directory (the root of your repo):
+```bash
+cd C:\Users\jett\OneDrive\Desktop\replitsite\efx2026
+railway link
+```
+
+Select your project when prompted.
+
+### Step 4: Run the Grant Admin Script
+
+**Option A: Single command (easiest)**
+```bash
+railway run node backend/scripts/grant-admin.js mark@efx.net.au paul@efx.net.au jett@efx.net.au
+```
+
+**Option B: Interactive shell**
+```bash
+railway shell
+# Then inside the shell:
+cd backend
+node scripts/grant-admin.js mark@efx.net.au paul@efx.net.au jett@efx.net.au
+```
+
+### Important Notes:
+- The `railway run` command automatically injects all environment variables (including `DATABASE_URL`)
+- If you get database connection errors, you might need to use the **public** database URL instead of the internal one
+- You can find the public database URL in Railway Dashboard → Database → Connect tab
+
+## Method 2: Using Railway Web Console (If Available)
+
+Some Railway projects have a web-based console:
+
+1. Go to Railway Dashboard
+2. Click on your **backend service**
+3. Look for a **"Console"** or **"Terminal"** tab
+4. If available, click it to open a web-based terminal
+5. Run: `node scripts/grant-admin.js mark@efx.net.au paul@efx.net.au jett@efx.net.au`
 
 ## Alternative: Direct SQL (if you have database access)
 
