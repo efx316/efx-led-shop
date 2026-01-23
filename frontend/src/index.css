@@ -33,12 +33,13 @@ body {
 /* Increase touch target area for sliders without changing visual appearance */
 /* Significantly increased padding creates much larger touch area for easier tapping */
 .slider-container {
-  /* Large padding creates bigger touch area (28px = 56px+ total touch height) */
-  padding-top: 28px;
-  padding-bottom: 28px;
+  /* Very large padding creates bigger touch area (40px = 80px+ total touch height) */
+  /* This makes it much easier to hit on small iPhones */
+  padding-top: 40px;
+  padding-bottom: 40px;
   /* Negative margin exactly offsets padding to maintain visual spacing */
-  margin-top: -28px;
-  margin-bottom: -28px;
+  margin-top: -40px;
+  margin-bottom: -40px;
   /* Ensure containers don't interfere with touch events */
   pointer-events: auto;
 }
