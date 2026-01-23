@@ -32,6 +32,13 @@ function question(query) {
 
 async function grantAdmin(emails) {
   try {
+    // First, list all users to help debug
+    console.log('📋 Checking database connection...');
+    const allUsers = await pool.query('SELECT email FROM users ORDER BY created_at DESC LIMIT 10');
+    console.log(`✅ Connected to database. Found ${allUsers.rows.length} user(s) in database:`);
+    allUsers.rows.forEach((u, i) => console.log(`   ${i + 1}. ${u.email}`));
+    console.log('');
+
     // Ensure columns exist
     try {
       await pool.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT false');
