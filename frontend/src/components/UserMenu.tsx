@@ -23,6 +23,7 @@ export default function UserMenu() {
     try {
       const data = await apiRequest('/api/user')
       if (data) {
+        console.log('User data fetched:', data)
         setUser(data)
         setIsAdmin(data.is_admin || false)
         if (data.points) {
@@ -31,6 +32,11 @@ export default function UserMenu() {
       }
     } catch (error) {
       console.error('Failed to fetch user data:', error)
+      // If API fails, keep using localStorage user data
+      const currentUser = getCurrentUser()
+      if (currentUser) {
+        setUser(currentUser)
+      }
     }
   }
 
@@ -57,7 +63,7 @@ export default function UserMenu() {
       >
         <div className="text-right">
           <div className="text-sm font-medium text-white">
-            {user?.name || user?.email || 'User'}
+            {user?.name || user?.email?.split('@')[0] || 'User'}
           </div>
           {points && (
             <div className="text-xs text-[#a3a3a3]">
