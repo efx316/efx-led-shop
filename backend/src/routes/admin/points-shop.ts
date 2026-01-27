@@ -261,24 +261,28 @@ router.put('/items/:id', authenticateToken, requireAdmin, upload.single('image')
   }
 });
 
-// Delete shop item (soft delete by setting active to false)
+// Delete shop item (hard delete - permanently removes from database)
 router.delete('/items/:id', authenticateToken, requireAdmin, async (req: AuthRequest, res: Response) => {
   try {
     const itemId = parseInt(req.params.id);
 
-    const result = await pool.query(
-      `UPDATE points_shop_items
-       SET active = false, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $1
-       RETURNING id`,
+    // Check if item exists
+    const checkResult = await pool.query(
+      'SELECT id FROM points_shop_items WHERE id = $1',
       [itemId]
     );
 
-    if (result.rows.length === 0) {
+    if (checkResult.rows.length === 0) {
       return res.status(404).json({ error: 'Item not found' });
     }
 
-    res.json({ success: true, message: 'Item deleted successfully' });
+    // Hard delete - permanently remove from database
+    await pool.query(
+      'DELETE FROM points_shop_items WHERE id = $1',
+      [itemId]
+    );
+
+    res.json({ success: true, message: 'Item permanently deleted' });
   } catch (error) {
     console.error('Delete shop item error:', error);
     res.status(500).json({ error: 'Failed to delete shop item' });

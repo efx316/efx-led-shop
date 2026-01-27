@@ -149,7 +149,7 @@ export default function AdminPointsShop() {
   }
 
   async function handleDelete(itemId: number) {
-    if (!confirm('Are you sure you want to delete this item? It will be hidden from the shop.')) {
+    if (!confirm('Are you sure you want to permanently delete this item? This cannot be undone.')) {
       return
     }
 
