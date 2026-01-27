@@ -75,6 +75,7 @@ router.post('/login', async (req: Request, res: Response) => {
         name: user.name,
         company_name: user.company_name,
         phone: user.phone,
+        is_admin: user.is_admin || false,
       },
       token,
     });

@@ -13,8 +13,13 @@ export default function UserMenu() {
     if (isAuthenticated()) {
       const currentUser = getCurrentUser()
       setUser(currentUser)
+      // Set admin status from localStorage immediately (in case it's already there)
+      setIsAdmin(currentUser?.is_admin || false)
+      // Then fetch fresh data from API to ensure we have the latest admin status
       fetchUserData().catch(err => {
         console.error('Failed to fetch user data:', err)
+        // If API fails, keep using localStorage admin status
+        setIsAdmin(currentUser?.is_admin || false)
       })
     }
   }, [])
