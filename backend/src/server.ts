@@ -54,7 +54,19 @@ const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '../uploads');
 console.log(`[Server] Static file serving configured:`);
 console.log(`  Upload directory: ${uploadDir}`);
 console.log(`  Serving at: /uploads`);
-app.use('/uploads', express.static(uploadDir));
+
+// Ensure upload directory exists before serving static files
+import fs from 'fs';
+try {
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+    console.log(`  Created upload directory: ${uploadDir}`);
+  }
+  app.use('/uploads', express.static(uploadDir));
+} catch (error) {
+  console.error(`[Server] Warning: Could not setup static file serving:`, error);
+  // Don't crash - just log the error
+}
 
 // Root route
 app.get('/', (req, res) => {
