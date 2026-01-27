@@ -51,6 +51,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve uploaded files statically (for local/filesystem storage)
 const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '../uploads');
+console.log(`[Server] Static file serving configured:`);
+console.log(`  Upload directory: ${uploadDir}`);
+console.log(`  Serving at: /uploads`);
 app.use('/uploads', express.static(uploadDir));
 
 // Root route

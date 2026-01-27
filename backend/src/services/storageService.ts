@@ -105,6 +105,11 @@ async function uploadToLocal(file: Express.Multer.File, folder: string): Promise
   const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '../../uploads');
   const folderPath = path.join(uploadDir, folder);
   
+  console.log(`[Storage] Uploading to local storage:`);
+  console.log(`  Upload directory: ${uploadDir}`);
+  console.log(`  Folder: ${folder}`);
+  console.log(`  Provider: ${process.env.STORAGE_PROVIDER || 'not set'}`);
+  
   // Ensure directory exists
   await fs.mkdir(folderPath, { recursive: true });
   
@@ -116,8 +121,9 @@ async function uploadToLocal(file: Express.Multer.File, folder: string): Promise
   
   // Write file to disk
   await fs.writeFile(filePath, file.buffer);
+  console.log(`  File saved: ${filePath}`);
   
-  // Generate URL - use Railway's public domain or API_URL
+  // Generate URL - use Railway's public domain
   let baseUrl = 'http://localhost:3000';
   if (process.env.RAILWAY_PUBLIC_DOMAIN) {
     baseUrl = `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`;
@@ -133,6 +139,8 @@ async function uploadToLocal(file: Express.Multer.File, folder: string): Promise
   
   const url = `${baseUrl}/uploads/${folder}/${filename}`;
   const key = `${folder}/${filename}`;
+  
+  console.log(`  Generated URL: ${url}`);
   
   return { url, key };
 }
