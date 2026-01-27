@@ -17,6 +17,17 @@ if (!process.env.DATABASE_URL) {
   dotenv.config({ path: join(__dirname, '..', '.env') });
 }
 
+// Debug: Log which database we're connecting to (without exposing credentials)
+if (process.env.DATABASE_URL) {
+  const dbUrl = process.env.DATABASE_URL;
+  const match = dbUrl.match(/@([^:]+):(\d+)\//);
+  if (match) {
+    console.log(`🔗 Connecting to database: ${match[1]}:${match[2]}`);
+  }
+} else {
+  console.log('⚠️  DATABASE_URL not set - using local .env file');
+}
+
 const { Pool } = pg;
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
