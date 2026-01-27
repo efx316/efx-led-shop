@@ -7,6 +7,7 @@ export interface User {
   name: string | null;
   company_name: string | null;
   phone: string | null;
+  is_admin?: boolean;
   created_at: Date;
 }
 
@@ -46,9 +47,9 @@ export async function createUser(input: CreateUserInput): Promise<User> {
   return user;
 }
 
-export async function getUserByEmail(email: string): Promise<User & { password_hash: string } | null> {
+export async function getUserByEmail(email: string): Promise<(User & { password_hash: string }) | null> {
   const result = await pool.query(
-    `SELECT id, email, password_hash, name, company_name, phone, created_at
+    `SELECT id, email, password_hash, name, company_name, phone, is_admin, created_at
      FROM users WHERE email = $1`,
     [email]
   );
