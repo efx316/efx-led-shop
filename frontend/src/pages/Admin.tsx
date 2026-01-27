@@ -7,6 +7,18 @@ export default function Admin() {
 
   const adminSections = [
     {
+      title: 'Categories',
+      description: 'Manage product categories and sync from Square',
+      href: '/admin/categories',
+      icon: '📁',
+    },
+    {
+      title: 'Products',
+      description: 'Assign products to categories',
+      href: '/admin/product-categories',
+      icon: '🔗',
+    },
+    {
       title: 'Orders',
       description: 'Manage and approve customer orders',
       href: '/admin/orders',
@@ -19,16 +31,10 @@ export default function Admin() {
       icon: '👥',
     },
     {
-      title: 'Categories',
-      description: 'Manage product categories and sync from Square',
-      href: '/admin/categories',
-      icon: '📁',
-    },
-    {
-      title: 'Product Categories',
-      description: 'Assign products to categories',
-      href: '/admin/product-categories',
-      icon: '🔗',
+      title: 'Points Shop',
+      description: 'Manage merchandise and items in the points shop',
+      href: '/admin/points-shop',
+      icon: '🛍️',
     },
   ]
 

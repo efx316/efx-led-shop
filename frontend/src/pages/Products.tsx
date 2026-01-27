@@ -2,8 +2,7 @@ import { Link } from 'wouter'
 import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useLightStudio } from '../contexts/LightStudioContext'
-
-const API_URL = (import.meta.env?.VITE_API_URL as string) || 'http://localhost:3000'
+import { apiRequest } from '../lib/api'
 
 interface Category {
   id: string
@@ -37,26 +36,30 @@ export default function Products() {
   const { data: categories = [], isLoading: categoriesLoading, error: categoriesError } = useQuery<Category[]>({
     queryKey: ['categories'],
     queryFn: async () => {
-      const response = await fetch(`${API_URL}/api/square/categories`)
-      if (!response.ok) {
-        throw new Error('Failed to fetch categories')
+      try {
+        return await apiRequest('/api/square/categories')
+      } catch (error: any) {
+        console.error('Error fetching categories:', error)
+        throw new Error(error.error || error.message || 'Failed to fetch categories')
       }
-      return response.json()
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 2,
   })
 
   // Fetch all products
   const { data: products = [], isLoading: productsLoading, error: productsError } = useQuery<Product[]>({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await fetch(`${API_URL}/api/square/products`)
-      if (!response.ok) {
-        throw new Error('Failed to fetch products')
+      try {
+        return await apiRequest('/api/square/products')
+      } catch (error: any) {
+        console.error('Error fetching products:', error)
+        throw new Error(error.error || error.message || 'Failed to fetch products')
       }
-      return response.json()
     },
     staleTime: 5 * 60 * 1000,
+    retry: 2,
   })
 
   // Filter products by selected category (client-side)
@@ -79,12 +82,25 @@ export default function Products() {
   }
 
   if (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to load products'
+    const isNetworkError = errorMessage.includes('Failed to fetch') || errorMessage.includes('ERR_BLOCKED_BY_CLIENT')
+    
     return (
       <div className="container mx-auto px-4 py-16">
-        <div className="flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-4">
           <div className="text-xl text-gray-400">
-            Error: {error instanceof Error ? error.message : 'Failed to load products'}
+            Error: {errorMessage}
           </div>
+          {isNetworkError && (
+            <div className="text-sm text-gray-500 max-w-md text-center">
+              <p>This might be caused by:</p>
+              <ul className="list-disc list-inside mt-2 space-y-1">
+                <li>Browser extension blocking the request (try disabling ad blockers)</li>
+                <li>Backend server not running (check if http://localhost:3000 is accessible)</li>
+                <li>Network connectivity issues</li>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     )

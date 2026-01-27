@@ -14,6 +14,7 @@ import AdminOrders from './pages/AdminOrders'
 import AdminUsers from './pages/AdminUsers'
 import AdminCategories from './pages/AdminCategories'
 import AdminProductCategories from './pages/AdminProductCategories'
+import AdminPointsShop from './pages/AdminPointsShop'
 import PointsShop from './pages/PointsShop'
 import Leaderboard from './pages/Leaderboard'
 import EditOrder from './pages/EditOrder'
@@ -42,6 +43,7 @@ function App() {
             <Route path="/admin/users" component={AdminUsers} />
             <Route path="/admin/categories" component={AdminCategories} />
             <Route path="/admin/product-categories" component={AdminProductCategories} />
+            <Route path="/admin/points-shop" component={AdminPointsShop} />
             <Route>404 - Not Found</Route>
           </Switch>
         </div>

@@ -214,10 +214,11 @@ router.patch('/orders/:id/approve', authenticateToken, requireAdmin, async (req:
   }
 });
 
-// Import category, product, and user admin routes
+// Import category, product, user, and points-shop admin routes
 import categoryRoutes from './admin/categories.js';
 import productRoutes from './admin/products.js';
 import userRoutes from './admin/users.js';
+import pointsShopRoutes from './admin/points-shop.js';
 
 // Mount category routes
 router.use('/categories', categoryRoutes);
@@ -227,6 +228,9 @@ router.use('/products', productRoutes);
 
 // Mount user routes
 router.use('/users', userRoutes);
+
+// Mount points shop routes
+router.use('/points-shop', pointsShopRoutes);
 
 export default router;
 

@@ -1,8 +1,14 @@
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import dotenv from 'dotenv';
 import { Readable } from 'stream';
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const provider = process.env.STORAGE_PROVIDER || 's3';
 
@@ -19,8 +25,10 @@ export async function uploadFile(
     return uploadToS3(file, folder);
   } else if (provider === 'spaces') {
     return uploadToSpaces(file, folder);
+  } else if (provider === 'local' || provider === 'filesystem') {
+    return uploadToLocal(file, folder);
   } else {
-    throw new Error(`Unsupported storage provider: ${provider}`);
+    throw new Error(`Unsupported storage provider: ${provider}. Use 'local', 's3', or 'spaces'`);
   }
 }
 
@@ -88,6 +96,44 @@ async function uploadToSpaces(file: Express.Multer.File, folder: string): Promis
   const endpoint = process.env.SPACES_ENDPOINT?.replace('https://', '') || '';
   const url = `https://${bucket}.${endpoint}/${key}`;
 
+  return { url, key };
+}
+
+async function uploadToLocal(file: Express.Multer.File, folder: string): Promise<UploadResult> {
+  // Use UPLOAD_DIR environment variable or default to 'uploads' directory
+  // For Railway Volumes, mount a volume and set UPLOAD_DIR to the mount path
+  const uploadDir = process.env.UPLOAD_DIR || path.join(__dirname, '../../uploads');
+  const folderPath = path.join(uploadDir, folder);
+  
+  // Ensure directory exists
+  await fs.mkdir(folderPath, { recursive: true });
+  
+  // Generate unique filename
+  const timestamp = Date.now();
+  const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
+  const filename = `${timestamp}-${sanitizedName}`;
+  const filePath = path.join(folderPath, filename);
+  
+  // Write file to disk
+  await fs.writeFile(filePath, file.buffer);
+  
+  // Generate URL - use Railway's public domain or API_URL
+  let baseUrl = 'http://localhost:3000';
+  if (process.env.RAILWAY_PUBLIC_DOMAIN) {
+    baseUrl = `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`;
+  } else if (process.env.API_URL) {
+    baseUrl = process.env.API_URL;
+  } else if (process.env.NODE_ENV === 'production') {
+    // Try to get from Railway environment variables
+    const railwayDomain = process.env.RAILWAY_STATIC_URL || process.env.RAILWAY_PUBLIC_DOMAIN;
+    if (railwayDomain) {
+      baseUrl = `https://${railwayDomain}`;
+    }
+  }
+  
+  const url = `${baseUrl}/uploads/${folder}/${filename}`;
+  const key = `${folder}/${filename}`;
+  
   return { url, key };
 }
 
