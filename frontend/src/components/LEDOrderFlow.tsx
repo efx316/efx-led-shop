@@ -116,6 +116,41 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
     }
   }, [isEditing, initialConfig])
 
+  // Sync first strip when length or tailWireLength changes
+  useEffect(() => {
+    setConfig(prev => {
+      // If both length and tailWireLength are set
+      if (prev.length !== null && prev.tailWireLength !== null) {
+        // If strips array is empty, initialize it
+        if (prev.strips.length === 0) {
+          return {
+            ...prev,
+            strips: [{
+              length: prev.length,
+              connectionType: 'tail' as const,
+              connectionLength: prev.tailWireLength,
+            }],
+          }
+        }
+        // Otherwise, update the first strip if values changed
+        const firstStrip = prev.strips[0]
+        if (firstStrip && (firstStrip.length !== prev.length || firstStrip.connectionLength !== prev.tailWireLength)) {
+          const updatedStrips = [...prev.strips]
+          updatedStrips[0] = {
+            ...firstStrip,
+            length: prev.length,
+            connectionLength: prev.tailWireLength,
+          }
+          return {
+            ...prev,
+            strips: updatedStrips,
+          }
+        }
+      }
+      return prev
+    })
+  }, [config.length, config.tailWireLength])
+
   const handleEnvironmentSelect = (env: 'indoor' | 'outdoor' | 'weatherproof') => {
     setConfig(prev => ({ ...prev, environment: env }))
     setStep('color')
