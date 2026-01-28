@@ -82,6 +82,15 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
   const { state } = useLightStudio()
   const { enabled } = state
   const [step, setStep] = useState<Step>('environment')
+  const [stepVisitCounter, setStepVisitCounter] = useState<Record<Step, number>>({
+    environment: 0,
+    color: 0,
+    type: 0,
+    length: 0,
+    tailwire: 0,
+    addstrips: 0,
+    review: 0,
+  })
   const [config, setConfig] = useState<OrderConfig>({
     environment: initialConfig?.environment || null,
     colorType: initialConfig?.colorType || null,
@@ -179,6 +188,13 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
       setStep(stepId)
     }
   }
+
+  // Track step changes to force input re-render when navigating to length/tailwire steps
+  useEffect(() => {
+    if (step === 'length' || step === 'tailwire') {
+      setStepVisitCounter(prev => ({ ...prev, [step]: (prev[step] || 0) + 1 }))
+    }
+  }, [step])
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -407,6 +423,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
             <h2 className="text-2xl font-bold mb-6 text-white">Enter Length (meters)</h2>
             <div className="max-w-md">
               <input
+                key={`length-input-${stepVisitCounter.length}`}
                 type="number"
                 min="0.5"
                 max="100"
@@ -450,6 +467,7 @@ export default function LEDOrderFlow({ initialConfig, orderId, isEditing = false
             <h2 className="text-2xl font-bold mb-6 text-white">Tail Wire Length (meters)</h2>
             <div className="max-w-md">
               <input
+                key={`tailwire-input-${stepVisitCounter.tailwire}`}
                 type="number"
                 min="0"
                 max="20"
